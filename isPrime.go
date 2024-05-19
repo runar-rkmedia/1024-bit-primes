@@ -6,7 +6,12 @@ import (
 )
 
 func isPrime(n int64) bool {
-	return big.NewInt(n).ProbablyPrime(0)
+	probablyCorrect := big.NewInt(n).ProbablyPrime(0)
+	myTruth := trialDivisionSimple(uint16(n))
+	if probablyCorrect != myTruth {
+		panic(fmt.Sprintf("Mytruth does not agree with math %f != %f", myTruth, probablyCorrect))
+	}
+	return myTruth
 }
 
 func isPrimeStr(n string) (bool, error) {
